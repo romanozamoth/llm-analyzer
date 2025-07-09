@@ -14,6 +14,24 @@ llm-analisador/
 └── README.md              # Instruções de uso
 ```
 
+# Requisitos
+Antes de tudo, instale os requisitos:
+
+```bash
+python3 -m pip install --no-cache-dir -r requirements.txt
+```
+
+ou
+
+```bash
+pip install --no-cache-dir -r requirements.txt
+```
+
+Certifique-se de que o Tesseract esteja instalado no seu sistema:
+
+Windows: https://github.com/UB-Mannheim/tesseract/wiki
+(Após instalar, configure o caminho no código se necessário)
+
 # 🔧 Instalar o Ollama localmente (apenas 1 vez)
 Ollama roda os modelos com aceleração por GPU e cria uma API local automaticamente.
 
@@ -52,6 +70,14 @@ curl -X POST http://localhost:8000/analisar \
   -H "Content-Type: application/json" \
   -d '{"texto": "A empresa XPTO apresentou proposta com o modelo Impressora LaserJet 1200 por R$ 1.500,00.", "pergunta": "Quais as propostas do texto contendo Fornecedor/Autor, marca/modelo e valor?"}'
 ```
+4. Teste a API IMG (exemplo via cURL ou Python):
+```bash
+curl -X POST "http://localhost:8000/analisar-imagem?pergunta=Qual%20o%20texto%20na%20imagem" \
+  -H  "accept: application/json" \
+  -H  "Content-Type: multipart/form-data" \
+  -F "file=@caminho/da/imagem.png"
+```
+
 # 🐳 Dockerizar (opcional, depois de testar)
 
 Build:

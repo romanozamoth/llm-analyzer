@@ -1,7 +1,12 @@
 import requests
+from PIL import Image
+import pytesseract
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODELO = "phi3"  # ou "mistral", se preferir
+MODELO = "phi3"  # ou "mistral"
+
+# Se necessário no Windows, descomente e configure o caminho:
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 def analisar_texto(texto: str, pergunta: str) -> str:
     prompt = (
@@ -20,3 +25,7 @@ def analisar_texto(texto: str, pergunta: str) -> str:
         return response.json()["response"]
     else:
         return f"Erro ao consultar o modelo: {response.text}"
+
+def extrair_texto_ocr(caminho_imagem: str) -> str:
+    imagem = Image.open(caminho_imagem)
+    return pytesseract.image_to_string(imagem)
